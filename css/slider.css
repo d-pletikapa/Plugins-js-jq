@@ -1,0 +1,43 @@
+.slider {
+    height: 400px;
+}
+
+.slider__img {
+    object-fit: cover;
+    height: 100%;
+}
+
+
+.slider__button-right,
+.slider__button-left {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: calc(50% - 25px);
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider__button-right {
+    right: -5px;
+}
+
+.slider__button-left {
+    left: -5px;
+}
+.swiper-button-prev:focus,
+.swiper-button-prev:active, 
+.swiper-button-next:focus,
+.swiper-button-next:active {
+    outline: none; 
+    border-radius: 0;
+    box-shadow: none;
+}
+
+
+.slider__container {
+    position: relative;
+}

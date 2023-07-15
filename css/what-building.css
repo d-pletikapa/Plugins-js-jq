@@ -1,0 +1,142 @@
+.what-building {
+    --cart-count: 6;
+    --gap: 20px;
+}
+
+.what-building__title {
+    font-weight: 500;
+    font-size: var(--text-size-title, 48px);
+    line-height: 57px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.what-building__list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: var(--gap);
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+
+.what-building__item {
+    padding-top: 4px;
+    -ms-flex-preferred-size: 165px;
+        flex-basis: 165px;
+    background-color: var(--main-color);
+    border-radius: 20px;
+    margin-right: var(--gap);
+}
+
+.what-building__item:last-child {
+    margin-right: 0;
+}
+
+
+.what-building__text {
+    font-weight: 600;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.what-building__item::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 190px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100px;
+}
+
+.what-building__item_home::after {
+    background-image: url("../img/home.svg");
+}
+
+.what-building__item_cottage::after {
+    background-image: url("../img/cottage.svg");
+}
+
+.what-building__item_townhouse::after {
+    background-image: url("../img/townhouse.svg");
+}
+
+.what-building__item_mansion::after {
+    background-image: url("../img/mansion.svg");
+}
+
+.what-building__item_village::after {
+    background-image: url("../img/village.svg");
+}
+
+.what-building__item_sauna::after {
+    background-image: url("../img/sauna.svg");
+}
+
+@media (max-width: 1200px) {
+
+
+    .what-building__list {
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .what-building__item {
+        margin-right: 30px;
+        margin-bottom: 30px;
+    }
+
+    .what-building__item:nth-child(even) {
+        margin-right: 0;
+    }
+
+    .what-building__item:nth-last-child(-n+2) {
+        margin-bottom: 0;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .what-building__list {
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .what-building__list {
+        max-width: 300px;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+
+    .what-building__list .what-building__item {
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .what-building__item:last-child() {
+        margin-bottom: 0;
+    }
+
+}
+
+@supports (gap: 100px) {
+
+    .what-building__list .what-building__item {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+
+
+}
