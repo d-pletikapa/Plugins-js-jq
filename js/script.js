@@ -118,6 +118,7 @@ if (!Cookies.get('dom-ready-cookie')) {
   }, 2000);
 };
 
+// Inputmask
 const modalOrderTitle = document.querySelector('.modal-order__title');
 const inputTel = document.querySelector('.modal-order__input_tel');
 const telMask = new Inputmask('+7 (999) 999-99-99'); //static mask
@@ -215,5 +216,115 @@ $('.acc__list').accordion(
     }
   }
 );
-// Yandex map
+// Yandex map 3.0
+
+let map = null;
+// Главная функция, вызывается при запуске скрипта
+main();
+async function main() {
+  // ожидание загрузки модулей
+  await ymaps3.ready;
+  const {
+    YMap,
+    YMapDefaultSchemeLayer,
+    YMapControls,
+    YMapDefaultFeaturesLayer,
+    YMapMarker
+  } = ymaps3;
+
+  // Импорт модулей для элементов управления на карте
+  const {
+    YMapZoomControl, 
+    YMapGeolocationControl,
+  } = await ymaps3.import('@yandex/ymaps3-controls@0.0.1');
+  const {YMapOpenMapsButton} = await ymaps3.import('@yandex/ymaps3-controls-extra');
+  const {YMapDefaultMarker} = await ymaps3.import('@yandex/ymaps3-markers@0.0.1');
+
+  // Координаты центра карты
+  const CENTER_COORDINATES = [37.64, 55.76];
+  // координаты метки на карте
+  const MARKER_COORDINATES = [37.64, 55.76];
+
+  // Объект с параметрами центра и зумом карты
+  const LOCATION = {
+    center: CENTER_COORDINATES, 
+    zoom: 17, // max 21
+  };
+
+  // Создание объекта карты
+  map = new YMap(document.getElementById('map'), {location: LOCATION});
+
+  // Добавление слоев на карту
+  map.addChild(scheme = new YMapDefaultSchemeLayer());
+  map.addChild(new YMapDefaultFeaturesLayer());
+
+  // Добавление элементов управления на карту
+  map.addChild(new YMapControls({position: 'right'})
+    .addChild(new YMapZoomControl({}))
+  );
+  map.addChild(new YMapControls({position: 'top right'})
+    .addChild(new YMapGeolocationControl({}))
+  );
+
+  // Создание маркера
+  const el = document.createElement('img');
+  el.className = 'first-marker';
+  el.src = './img/pin.svg';
+  el.title = 'Маркер01';
+  // При клике на маркер меняем центр карты на LOCATION с заданным duration
+  el.onclick = () => map.update({location: {...LOCATION, duration: 1000}});
+
+  // Создание заголовка маркера
+  const markerTitle = document.createElement('div');
+  markerTitle.className = 'marker-title';
+  markerTitle.innerHTML = 'Заголовок маркера';
+
+  // Контейнер для элементов маркера
+  const imgContainer = document.createElement('div');
+  imgContainer.appendChild(el);
+  imgContainer.appendChild(markerTitle);
+
+  // Добавление центра карты
+  map.addChild(new YMapMarker({coordinates: CENTER_COORDINATES}));
+
+  // Добавление маркера на карту
+  map.addChild(new YMapMarker({coordinates: MARKER_COORDINATES}, imgContainer));
+  
+    };
+
+// Yandex map 2.1
+ymaps.ready(init);
+        function init(){
+            const oldMap = new ymaps.Map('oldMap', {
+                center: [55.205247, 25.077816],
+                zoom: 18
+            });
+       
+const mark = new ymaps.Placemark([55.205247, 25.077816], {
+  hintContent: 'цвет <strong>воды пляжа бондина</strong>',
+  balloonContent: 'цвет <strong>воды пляжа бонди</strong>'
+}, {
+  iconLayout: 'default#image',
+  iconImageHref: 'img/pin.svg',
+  iconImageSize: [50, 50],
+  iconImageOffset: [-25, -50],
+  preset: 'islands#icon',
+  iconColor: '#0095b6',
+}
+);
+oldMap.geoObjects.add(mark);
+
+oldMap.behaviors.disable('scrollZoom'); // запрещаем скролл колесом
+oldMap.behaviors.disable('drag'); // запрещаем скролл свайпом
+
+oldMap.controls.remove('geolocationControl'); // удаляем геолокацию
+oldMap.controls.remove('searchControl'); // удаляем поиск'
+oldMap.controls.remove('trafficControl'); // удаляем компонента трафика'
+oldMap.controls.remove('typeSelector'); // удаляема тип карты'
+oldMap.controls.remove('fullscreenControl'); // удаляем кнопка перехода в полноэкранный реж'
+oldMap.controls.remove('zoomControl'); // удаляем компонента зумма'
+oldMap.controls.remove('rulerControl'); // удаляем компонента размеров'
+
+}
 // Leaflet map
+
